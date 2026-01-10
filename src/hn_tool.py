@@ -102,39 +102,39 @@ def search_hn_by_date_range(
         results.append("No stories found in the specified date range.")
     return "\n".join(results)
 
-def get_hn_comments(story_id: str, limit: int = 10) -> str:
-    # HN_ITEM_URL = "https://hn.algolia.com/api/v1/items/"
+# def get_hn_comments(story_id: str, limit: int = 10) -> str:
+#     # HN_ITEM_URL = "https://hn.algolia.com/api/v1/items/"
 
-    with httpx.Client() as client: 
-        response = client.get(
-            HN_SEARCH_URL,
-            params={
-                "tags": f"comment,story_{story_id}",
-                "hitsPerPage": limit
-            }
-        )
+#     with httpx.Client() as client: 
+#         response = client.get(
+#             HN_SEARCH_URL,
+#             params={
+#                 "tags": f"comment,story_{story_id}",
+#                 "hitsPerPage": limit
+#             }
+#         )
     
-        if response.status_code != 200:
-            return f"Error: API unable to fetch comments. Status code {response.status_code}"
+#         if response.status_code != 200:
+#             return f"Error: API unable to fetch comments. Status code {response.status_code}"
         
-        data = response.json()
+#         data = response.json()
 
-    # comments = data.get("children", [])
-    results = []
-    results.append(f"=== Top {limit} Comments for Story ID {story_id} ===\n")
+#     # comments = data.get("children", [])
+#     results = []
+#     results.append(f"=== Top {limit} Comments for Story ID {story_id} ===\n")
 
-    for i, comment in enumerate(data.get("hits", []), start=1):
+#     for i, comment in enumerate(data.get("hits", []), start=1):
 
-        author = comment.get("author", "Unknown Author")
-        text = comment.get("text", "[No Text]").replace("\n", " ")
-        text = text[:500]
-        # created_at = comment.get("created_at", "Unknown Date")
+#         author = comment.get("author", "Unknown Author")
+#         text = comment.get("text", "[No Text]").replace("\n", " ")
+#         text = text[:500]
+#         # created_at = comment.get("created_at", "Unknown Date")
 
-        results.append(f"{i}. Author: {author}: {text}")
-        # results.append(f"   Comment: {text}")
-        results.append("")  # Blank line for readability
+#         results.append(f"{i}. Author: {author}: {text}")
+#         # results.append(f"   Comment: {text}")
+#         results.append("")  # Blank line for readability
 
-    return "\n".join(results)
+#     return "\n".join(results)
 
 if __name__ == '__main__': 
     print("\n"+"="*60)
@@ -153,9 +153,9 @@ if __name__ == '__main__':
     result = search_hn_by_date_range("GPT", "2024-10-01", "2024-12-31", limit=5)
     print(result)
 
-    print("\nTest 4: Get comments for top story from above\n")
-    result = get_hn_comments("53612345", limit=5)
-    print(result)
+    # print("\nTest 4: Get comments for top story from above\n")
+    # result = get_hn_comments("53612345", limit=5)
+    # print(result)
 
     print("\n"+"="*60)
     print("End of Hacker News Search Tool Test")

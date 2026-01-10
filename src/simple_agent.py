@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import json
 
-from hm_tool import search_hn_stories, get_hn_comments
+from hn_tool import search_hn_stories, search_hn_by_date_range
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))

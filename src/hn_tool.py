@@ -1,4 +1,5 @@
 import httpx
+import time 
 from datetime import datetime
 from typing import Optional
 
@@ -46,11 +47,15 @@ def search_hn_stories(
 
     return "\n".join(results)
 
+
 def search_hn_by_date_range(
         query:str,
         start_date: str,
         end_date: str,
-        limit: int = 15) -> str:
+        limit: int = 15,
+        max_retries: int = 3
+    ) -> str:
+
 
     try:
         start_ts = int(datetime.strptime(start_date, "%Y-%m-%d").timestamp())
@@ -61,21 +66,32 @@ def search_hn_by_date_range(
 
     numeric_filtres = f"created_at_i>={start_ts},created_at_i<={end_ts}"
 
-    with httpx.Client() as client: 
-        response = client.get(
-            HN_SEARCH_BY_DATE_URL,
-            params={
-                "query": query, 
-                "tags": "story",
-                "numericFilters": numeric_filtres,
-                "hitsPerPage": limit
-            }
-        )
-    
-        if response.status_code != 200:
-            return f"Error: API unable to fetch stories. Status code {response.status_code}"
-        
-        data = response.json()
+    # with retry logic for error handling, exponential back-off 
+    for attempt in range(max_retries):
+        try:
+            with httpx.Client() as client: 
+                response = client.get(
+                    HN_SEARCH_BY_DATE_URL,
+                    params={
+                        "query": query, 
+                        "tags": "story",
+                        "numericFilters": numeric_filtres,
+                        "hitsPerPage": limit
+                    }
+                )
+            
+                if response.status_code != 200:
+                    return f"Error: API unable to fetch stories. Status code {response.status_code}"
+                
+                data = response.json()
+                break # exits loop if successful 
+        except Exception as e: 
+            if attempt < (max_retries -1):
+                wait_time = 2 ** attempt # exponential back-off timing, 1s then 2s then 4s etc.
+                print(f"API error attempt {attempt +1} failed. Retrying in {wait_time} seconds...")
+                time.sleep(wait_time)
+            else: 
+                return f"Error: API request failed after {max_retries} attempts. Last error details: {str(e)}"
 
     results = []
     results.append(f"=== Hacker News Search Results for '{query}' from {start_date} to {end_date} ===")
@@ -100,6 +116,7 @@ def search_hn_by_date_range(
 
     if not data.get("hits"):
         results.append("No stories found in the specified date range.")
+        
     return "\n".join(results)
 
 # def get_hn_comments(story_id: str, limit: int = 10) -> str:

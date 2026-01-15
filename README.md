@@ -17,8 +17,8 @@ First proposed by Google in 2024, Chain-of-Agents (CoA) is an agentic AI framewo
 
 This approach was shown to provide several key benefits over vanilla LLMs & even RAG systems: 
 
-1. **Longer context window**: CoA with a smaller context window (8k) was shown to outperform a vanilla LLM (200k) on long-context tasks
-2. **Lost in the middle problem**: Traditional LLMs & RAG systems struggle when the correct answer is burried in the middle of a long context, but CoA mitigates this. 
+1. **Longer context window**: CoA theoretically has an unlimited, rolling context window. Google's paper (Zhang et al., 2024) showed that a CoA system with a smaller context window (8k) outperformed a vanilla LLM (200k) on long-context tasks. 
+2. **Lost in the middle problem**: Traditional LLMs & RAG systems struggle when the correct answer is burried in the middle of a long context, whereas CoA allows for high-resolution attention on every part of the context, mitigating this problem. 
 3. **Temporal Awareness**: Well-suited for capturing how trends evolve over time periods.
 
 ## Architecture
@@ -168,6 +168,5 @@ The system currently evaluates answer quality based on:
 ## Acknowledgments
 1. Algolia. (2024). *Hacker News Search API*. Retrieved from https://hn.algolia.com/api
 2. LangChain AI. (2024). *LangGraph: Build language agents as graphs*. Retrieved from https://langchain-ai.github.io/langgraph/
-3. Wang, Y., Sun, R., Chen, Y., Pfister, T., Zhang, R., & Arik, S. Ö. (2024). Chain of Agents: Large Language Models Collaborating on Long-Context Tasks. *arXiv preprint arXiv:2406.02818*. https://arxiv.org/abs/2406.02818
-
+3. Zhang, Y., Sun, R., Chen, Y., Pfister, T., Zhang, R., & Arik, S. Ö. (2024). Chain of agents: Large language models collaborating on long-context tasks. arXiv. https://doi.org/10.48550/arXiv.2406.02818
 

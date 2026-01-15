@@ -166,9 +166,8 @@ The system currently evaluates answer quality based on:
 - Support for other data sources beyond Hacker News
 
 ## Acknowledgments
-
-- Hacker News Algolia API for providing free search access
-- LangGraph documentation and examples
-- Wang et al. (2024) for the Chain-of-Agents framework: "Chain of Agents: Large Language Models Collaborating on Long-Context Tasks" - https://arxiv.org/html/2406.02818v1#S3
+1. Algolia. (2024). *Hacker News Search API*. Retrieved from https://hn.algolia.com/api
+2. LangChain AI. (2024). *LangGraph: Build language agents as graphs*. Retrieved from https://langchain-ai.github.io/langgraph/
+3. Wang, Y., Sun, R., Chen, Y., Pfister, T., Zhang, R., & Arik, S. Ö. (2024). Chain of Agents: Large Language Models Collaborating on Long-Context Tasks. *arXiv preprint arXiv:2406.02818*. https://arxiv.org/abs/2406.02818
 
 

@@ -4,7 +4,7 @@
 
 This project implements a Chain-of-Agents (CoA) framework using LangGraph to perform trend analysis on Hacker News data. 
 
-Unlike standard LLMs or RAG systems, our CoA framework utilises a multi-agent framework to sequentially analyse different time periods, achieving better accuracy for longer-context summarisation and question-answering tasks. 
+Unlike standard LLMs or RAG systems, this CoA framework utilises a multi-agent framework to sequentially analyse different time periods, achieving better accuracy for longer-context summarisation and question-answering tasks. 
 
 ## CoA Framework 
 
@@ -23,7 +23,7 @@ This approach was shown to provide several key benefits over vanilla LLMs & even
 
 ## Architecture
 
-This system uses worker agents and a manager agent orchestrated by LangGraph:
+This system uses planner, worker and a manager agent orchestrated by LangGraph:
 
 ```
 START → Planner → Worker → Worker → ... → Manager → END
@@ -33,7 +33,7 @@ START → Planner → Worker → Worker → ... → Manager → END
 
 ### Agent Roles
 
-1. **Planner**: Divides the analysis into time periods (Q1-Q4 2024)
+1. **Planner**: Divides the analysis into time periods
 
 2. **Worker Agent**: Analyzes one time period at a time
    - Fetches Hacker News data for the period
